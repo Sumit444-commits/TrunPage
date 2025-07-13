@@ -35,7 +35,6 @@ const SaleDetailPage = () => {
   }
 
   const { email, status, reason, price, receipt, service = {} } = sale;
-  const safeService = service || {};
   const statusInfo = statusMap[status] || statusMap[0];
 
   const handleImageClick = (link) => {
@@ -102,16 +101,16 @@ const SaleDetailPage = () => {
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <img
-            src={safeService?.image || ""}
+            src={service?.image || ""}
             alt="Service"
-            onClick={() => handleImageClick(safeService?.image)}
+            onClick={() => handleImageClick(service?.image)}
             className="w-full h-56 object-cover rounded border"
           />
           <div className="space-y-3">
-            <p><strong>Name:</strong> {safeService?.name}</p>
-            <p><strong>Title:</strong> {safeService?.title}</p>
-            <p><strong>Category:</strong> {safeService?.category}</p>
-            <p><strong>Book Price:</strong> ${safeService?.price?.toFixed(2)}</p>
+            <p><strong>Name:</strong> {service?.name}</p>
+            <p><strong>Title:</strong> {service?.title}</p>
+            <p><strong>Category:</strong> {service?.category}</p>
+            <p><strong>Book Price:</strong> ${service?.price?.toFixed(2)}</p>
           </div>
         </div>
       </div>
