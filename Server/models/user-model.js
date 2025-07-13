@@ -45,7 +45,7 @@ userSchema.methods.generateToken = async function (next) {
         isAdmin: this.isAdmin,
       },
       process.env.JWT_TOKEN_SECERT,
-      { expiresIn: "1d" }
+      { expiresIn: "1h" }
     );
     return token;
   } catch (error) {
