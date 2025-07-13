@@ -1,13 +1,13 @@
 import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./utils/db.js";
-import authRouter from "./Routes/auth-router.js"
-import contactRouter from "./Routes/contact-router.js"
-import serviceRouter from "./Routes/service-router.js"
-import salesRouter from "./Routes/sales-router.js"
-import adminRouter from "./Routes/admin-router.js"
+import authRouter from "./Routes/auth-router.js";
+import contactRouter from "./Routes/contact-router.js";
+import serviceRouter from "./Routes/service-router.js";
+import salesRouter from "./Routes/sales-router.js";
+import adminRouter from "./Routes/admin-router.js";
 import errorMiddleware from "./middleware/error-middleware.js";
-import cors from "cors"
+import cors from "cors";
 import fetch from "node-fetch";
 
 dotenv.config();
@@ -16,7 +16,7 @@ const port = process.env.PORT || 3000;
 
 const allowedOrigins = [
   "https://trun-page-admin.vercel.app",
-  "http://localhost:5173"
+  "http://localhost:5173",
 ];
 
 const corsOptions = {
@@ -27,24 +27,23 @@ const corsOptions = {
       callback(new Error("Not allowed by CORS"));
     }
   },
-  method: "GET, POST, PUT, PATCH, DELETE, OPTIONS",
-  credential: true,
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  credentials: true,
 };
 // middlewares
-app.use(cors(corsOptions))
+app.use(cors(corsOptions));
 app.options("*", cors(corsOptions)); // Enable preflight for all routes
-app.use(express.json())
-
+app.use(express.json());
 
 // routes middleware
-app.use("/api/auth",authRouter)
-app.use("/api/form",contactRouter)
-app.use("/api/data",serviceRouter)
-app.use("/api/sales",salesRouter)
-app.use("/api/admin",adminRouter)
+app.use("/api/auth", authRouter);
+app.use("/api/form", contactRouter);
+app.use("/api/data", serviceRouter);
+app.use("/api/sales", salesRouter);
+app.use("/api/admin", adminRouter);
 
 // custom middleware
-app.use(errorMiddleware)
+app.use(errorMiddleware);
 
 app.get("/api/download/image", async (req, res) => {
   const imageUrl = req.query.url;
@@ -61,15 +60,12 @@ app.get("/api/download/image", async (req, res) => {
   }
 });
 
-
 app.get("/", (req, res) => {
   res.send("hello");
 });
 
 connectDB().then(() => {
-
   app.listen(port, () => {
     console.log(`Server is running on port : ${port}`);
   });
-
 });
