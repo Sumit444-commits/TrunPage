@@ -71,6 +71,7 @@ export default function SaleDetail({ sale, onStatusUpdate }) {
         {/* Grid Sections */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* User Info */}
+           {user !== null ? 
           <div className="flex gap-4 items-center">
             <img
               src={user?.profile_url}
@@ -87,7 +88,7 @@ export default function SaleDetail({ sale, onStatusUpdate }) {
               <p className="text-sm text-gray-600">Phone: {user?.phone}</p>
             </div>
           </div>
-
+          : <h2 className="text-xl text-gray-600">This book is Deleted or replaced</h2> }
           {/* Service Info */}
             {service !== null ? 
           <div className="flex gap-4">

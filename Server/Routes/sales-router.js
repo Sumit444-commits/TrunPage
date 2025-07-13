@@ -10,4 +10,5 @@ router.route("/get/:id").get(authMiddleware,getSalesById)
 
 router.route("/update/:id").patch(authMiddleware,updateSaleById)
 
+
 export default router;

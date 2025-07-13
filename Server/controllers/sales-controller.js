@@ -69,4 +69,6 @@ const updateSaleById = async (req, res) => {
   }
 };
 
+
+
 export { buyService, getSalesById, updateSaleById };
