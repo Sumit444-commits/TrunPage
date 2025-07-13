@@ -18,8 +18,8 @@ export const StoreProvider = ({ children }) => {
     localStorage.setItem("token", usertoken);
   };
 
-   const isAuthenticated = async () => {
-    setIsLoading(true)
+  const isAuthenticated = async () => {
+    setIsLoading(true);
     try {
       const response = await fetch(`${Api}/api/auth/user`, {
         method: "GET",
@@ -33,9 +33,9 @@ export const StoreProvider = ({ children }) => {
         setUser(res_data);
       }
     } catch (error) {
-      console.error("Error Fetching user")
-    }finally{
-      setIsLoading(false)
+      console.error("Error Fetching user");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -43,7 +43,7 @@ export const StoreProvider = ({ children }) => {
 
   const logoutUser = () => {
     setToken("");
-    setUser("")
+    setUser("");
     localStorage.removeItem("token");
   };
 
@@ -72,24 +72,23 @@ export const StoreProvider = ({ children }) => {
     }
   };
 
-  const getBooksData = async ()=> {
+  const getBooksData = async () => {
     try {
-      const response = await fetch(`${Api}/api/data/services`,{
+      const response = await fetch(`${Api}/api/data/services`, {
         method: "GET",
         headers: {
-          "Content-Type": "application/json"
-        }
-      })
-      const res_data = await response.json()
-      if(response.ok){
-        setBooks(res_data)
+          "Content-Type": "application/json",
+        },
+      });
+      const res_data = await response.json();
+      if (response.ok) {
+        setBooks(res_data);
       }
-
     } catch (error) {
-      console.error("Error in Fetching books Data: ",error)
+      console.error("Error in Fetching books Data: ", error);
     }
-  }
- const getBookById = async (id) => {
+  };
+  const getBookById = async (id) => {
     try {
       const response = await fetch(`${Api}/api/data/services/get/${id}`, {
         method: "GET",
@@ -100,8 +99,8 @@ export const StoreProvider = ({ children }) => {
 
       const res_data = await response.json();
       if (response.ok) {
-        setBook(res_data)
-        return res_data
+        setBook(res_data);
+        return res_data;
       } else {
         console.error("Failed to fetch book:", res_data?.message);
       }
@@ -110,7 +109,7 @@ export const StoreProvider = ({ children }) => {
     }
   };
 
- const getSaleById = async (id) => {
+  const getSaleById = async (id) => {
     try {
       const response = await fetch(`${Api}/api/sales/get/${id}`, {
         method: "GET",
@@ -121,10 +120,13 @@ export const StoreProvider = ({ children }) => {
 
       const res_data = await response.json();
       if (response.ok) {
-        // setSale(res_data)
-        return res_data
+        return {
+          ...res_data,
+          service: res_data.service || {}, 
+        };
       } else {
         console.error("Failed to fetch book:", res_data?.message);
+        return null;
       }
     } catch (error) {
       console.error("Error fetching book:", error);
@@ -132,45 +134,40 @@ export const StoreProvider = ({ children }) => {
   };
 
   // buy service
-  const buyBook =async (userId,bookId,data) => {
+  const buyBook = async (userId, bookId, data) => {
     try {
-      const response = await fetch(`${Api}/api/sales/buy/${userId}/${bookId}`,{
+      const response = await fetch(`${Api}/api/sales/buy/${userId}/${bookId}`, {
         method: "POST",
         headers: {
-          "Authorization": AutherizationWithToken,
-          "Content-Type": "application/json"
+          Authorization: AutherizationWithToken,
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(data)
-      })
+        body: JSON.stringify(data),
+      });
 
-      if(response.ok){
-        toast.success("Buying Request Successfully Submitted")
-      }else{
-        toast.error("Buying Request Failed")
+      if (response.ok) {
+        toast.success("Buying Request Successfully Submitted");
+      } else {
+        toast.error("Buying Request Failed");
       }
-      
     } catch (error) {
-      console.error("Error Buying the book",error)
+      console.error("Error Buying the book", error);
     }
-  }
-  
+  };
 
   useEffect(() => {
-    if(token || isLoggedIn){
+    if (token || isLoggedIn) {
       isAuthenticated();
     }
-  }, [token,isLoggedIn]);
+  }, [token, isLoggedIn]);
   useEffect(() => {
-    if(token || isLoggedIn){
-
-      getBooksData()
+    if (token || isLoggedIn) {
+      getBooksData();
     }
-  }, [token,isLoggedIn]);
+  }, [token, isLoggedIn]);
   useEffect(() => {
-    
-      isAuthenticated();
-      getBooksData()
-  
+    isAuthenticated();
+    getBooksData();
   }, []);
 
   return (
@@ -188,7 +185,7 @@ export const StoreProvider = ({ children }) => {
         getBookById,
         book,
         isLoading,
-        getSaleById
+        getSaleById,
       }}
     >
       {children}
