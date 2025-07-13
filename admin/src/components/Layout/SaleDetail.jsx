@@ -88,7 +88,8 @@ export default function SaleDetail({ sale, onStatusUpdate }) {
               <p className="text-sm text-gray-600">Phone: {user?.phone}</p>
             </div>
           </div>
-          : <h2 className="text-xl text-gray-600">This book is Deleted or replaced</h2> }
+          : <h2 className="text-xl text-gray-600">This user is Deleted</h2> }
+
           {/* Service Info */}
             {service !== null ? 
           <div className="flex gap-4">
