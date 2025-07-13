@@ -14,13 +14,19 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
 
+const allowedOrigins = [
+  "https://trun-page-admin.vercel.app",
+];
+
 const corsOptions = {
-  method: "GET, POST, PUT, PATCH, DELETE, HEAD",
-  Credential : true
-}
+  origin: allowedOrigins,
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"],
+  credentials: true
+};
 
 // middlewares
 app.use(cors(corsOptions))
+app.options("*", cors(corsOptions)); // Enable preflight for all routes
 app.use(express.json())
 
 
