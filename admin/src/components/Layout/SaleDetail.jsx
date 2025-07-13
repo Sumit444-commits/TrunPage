@@ -38,7 +38,7 @@ export default function SaleDetail({ sale, onStatusUpdate }) {
       {/* Fullscreen Image Preview */}
       {imagePreview && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-md flex items-center justify-center z-50"
+          className="fixed inset-0 bg-blur-lg bg-opacity-70 backdrop-blur-md flex items-center justify-center z-50"
           onClick={handleClosePreview}
         >
           <img
