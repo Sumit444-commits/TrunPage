@@ -89,6 +89,7 @@ export default function SaleDetail({ sale, onStatusUpdate }) {
           </div>
 
           {/* Service Info */}
+            {service !== null ? 
           <div className="flex gap-4">
             <img
               src={service?.image}
@@ -110,6 +111,7 @@ export default function SaleDetail({ sale, onStatusUpdate }) {
               </p>
             </div>
           </div>
+          : <h2 className="text-xl text-gray-600">This book is Deleted or replaced</h2> }
 
           {/* Sale Info */}
           <div className="md:col-span-2 mt-4">
