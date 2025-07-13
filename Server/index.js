@@ -16,17 +16,23 @@ const port = process.env.PORT || 3000;
 
 const allowedOrigins = [
   "https://trun-page-admin.vercel.app",
+  "http://localhost:5173"
 ];
 
 const corsOptions = {
-  origin: allowedOrigins,
-  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"],
-  credentials: true
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  method: "GET, POST, PUT, PATCH, DELETE, OPTIONS",
+  credential: true,
 };
-
 // middlewares
 app.use(cors(corsOptions))
-app.options("*", cors(corsOptions)); // Enable preflight for all routes
+// app.options("*", cors(corsOptions)); // Enable preflight for all routes
 app.use(express.json())
 
 
